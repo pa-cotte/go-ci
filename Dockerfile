@@ -9,10 +9,7 @@ RUN apk update && apk add make git build-base curl autoconf automake libtool doc
 RUN curl -sSL https://sdk.cloud.google.com | bash
 ENV PATH $PATH:/root/google-cloud-sdk/bin
 
-# Get C++ protobuf library.
-RUN git clone https://github.com/google/protobuf -b v3.6.1.2 --depth 1
-# Install C++ protobuf library.
-RUN cd protobuf && ./autogen.sh && ./configure && make && make install && cd .. && rm -rf protobuf
-# Install golang protobuf generator.
-RUN go get -u github.com/golang/protobuf/protoc-gen-go
-RUN cd $GOPATH/src/github.com/golang/protobuf/protoc-gen-go && git checkout v1.2.0 && go install
+RUN PROTOC_ZIP=protoc-3.7.1-linux-x86_64.zip \
+    && curl -OL https://github.com/google/protobuf/releases/download/v3.7.1/$PROTOC_ZIP \
+    && unzip -o $PROTOC_ZIP -d /usr/local bin/protoc \
+    && rm -f $PROTOC_ZIP
