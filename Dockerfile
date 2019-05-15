@@ -1,4 +1,4 @@
-FROM golang:1.8-alpine
+FROM golang:1.12-alpine
 
 # Get library requirements.
 RUN apk update && apk add make git build-base curl autoconf automake libtool docker python bash \
