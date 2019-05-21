@@ -12,3 +12,7 @@ RUN GIT_TAG="v1.3.1" \
     && go get -d -u github.com/golang/protobuf/protoc-gen-go \
     && git -C "$(go env GOPATH)"/src/github.com/golang/protobuf checkout $GIT_TAG \
     && go install github.com/golang/protobuf/protoc-gen-go
+
+RUN go get golang.org/x/tools/go/packages \
+    && go get github.com/golang/mock/gomock \
+    && go install github.com/golang/mock/mockgen
